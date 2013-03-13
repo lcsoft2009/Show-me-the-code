@@ -108,8 +108,8 @@ int josephuse(int n, int m)
 			pos = pos->next;
 		}
 		startPos = pos->next->next;
-		printf("del %d\n",pos->next->data);
 		delete_after_pos(list,pos);
+		printf("del %d\n",pos->data);
 	}
 	return list->head->data;
 }
