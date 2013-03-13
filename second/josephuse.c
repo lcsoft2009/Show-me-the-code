@@ -13,6 +13,13 @@ typedef struct _List{
 	Node *head;
 }List;
 
+List *createList()
+{
+	List *list = (List*)malloc(sizeof(List));
+	list->head = NULL;
+	return list;
+}
+
 void insert_after_pos(List *list,Node *pos,int data)
 {
 	if(NULL == list) return;
@@ -39,8 +46,16 @@ void insert_tail(List *list,int data)
 	insert_after_pos(list,pos,data);
 }
 
+int josephuse(int n, int m)
+{
+
+}
+
 int main()
 {
-	
+	int n = 0, m = 0;
+	while(scanf("%d%d",&n,&m) == 2){
+		printf("%d\n",josephuse(n,m));
+	}
 	return 0;
 }

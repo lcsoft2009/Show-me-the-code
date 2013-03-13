@@ -20,6 +20,17 @@ List *createList()
 	return list;
 }
 
+void destoryList(List *list)
+{
+	Node *pos = list->head;
+	while(NULL != pos){
+		Node *nextPos = pos->next;
+		free(pos);
+		pos = nextPos;
+	}
+	free(list);
+}
+
 void insert(List *list, Node *pos, int data)
 {
 	Node *newNode = (Node*)malloc(sizeof(Node));
@@ -128,5 +139,7 @@ int main()
 
 	printList(getInterSect(l1,l2));
 	printList(getUnion(l1,l2));
+	destoryList(l1);
+	destoryList(l2);
 	return 0;
 }
