@@ -1,3 +1,7 @@
+以下题目，编程语言不限，输入方式不限，要关注时空复杂度。  
+本次【show me the code】主要包含基础数据结构链表、栈、队列。  
+如果你有链表、栈、队列这方面更好的题目，请回复我，谢谢~  
+答题方式：https://github.com/ellochen/Show-me-the-code 在该github项目上提交代码，第一届就push到first文件夹里，第二届就push到second文件夹里，文件名标注题号及自己英文名，如：<code> 1_ello.c </code> 依次类推。  
 题目：  
 1.第一题是我从网上搜集的若干道关于单链表的笔面试常考题。出处及答案见
 [http://hit9.org/blog/C/posts/25.html#2](http://hit9.org/blog/C/posts/25.html#2) ，希望看答案前先思考。
