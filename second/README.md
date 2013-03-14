@@ -20,19 +20,21 @@
 
 3.有0，1，...,n-1这n个数排成一个圆圈，从数字0开始每次从这个圆圈里删除第m个数。求出这个圆圈里剩下的最后一个数字。（用循环链表实现之后，再考虑有木有空间复杂度为O(1)的算法）
 
-4.用链表实现多项式的加法与乘法。可以使用如下结构作为节点：  
-<code>
-struct Node{  
-    int Coefficient;//系数  
-	int Exponent;//指数  
-	struct Node *Next;  
-};
-</code>
+4.用链表实现多项式的加法与乘法。可以使用如下结构作为节点：
+
+	struct Node{  
+		int Coefficient;//系数  
+		int Exponent;//指数  
+		struct Node *Next;  
+	};
+
 详情请参考《Data Structures and Algorithm Analysis in C》3.2.7节.
 
 5.编写检测下列语言平衡符号的程序。
-- <code> Pascal（begin/end，（），[]，{}）</code>
-- <code> C（/* */，()，[]，{}）</code>
+
+		Pascal（begin/end，（），[]，{}）
+
+		C（/* */，()，[]，{}）
 
 6.
  - 编写一个计算器程序，接收类似 5+2×3的中缀表达式，现将其转化为后缀表达式如523×+，并计算该后缀表达式的值。
