@@ -23,7 +23,7 @@
 4.用链表实现多项式的加法与乘法。可以使用如下结构作为节点：  
 <code>
 struct Node{  
-         int Coefficient;//系数  
+    int Coefficient;//系数  
 	int Exponent;//指数  
 	struct Node *Next;  
 };
