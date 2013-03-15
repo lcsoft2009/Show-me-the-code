@@ -58,7 +58,7 @@ int judge(int array[],int len)
 	int A = 1;
 	int i = 0;
 	Stack *stack = createStack();
-	while (len >= A) {
+	while (len >= A || top(stack) == array[i]) {
 		if(top(stack) == array[i]){
 			++i;
 			pop(stack);
