@@ -1,0 +1,5 @@
+It is just a simple implementation.
+1) Input expression requirements:
+	 operands  <= 0 ~ 9 positive integers;
+	 operators <= + - * / ^
+2) Check illegal expression in a rude way.

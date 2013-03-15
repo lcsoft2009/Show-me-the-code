@@ -1,0 +1,6 @@
+I do not take quotation marks into consideration, e.g '', "".
+So, you will get following results:
+./FlagMatcher Polynomial.cpp  => Correct
+./FlagMatcher FlagMatcher.cpp => Do not match.
+
+^-^.
