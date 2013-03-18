@@ -62,9 +62,7 @@ int judge(int array[],int len)
 		if(top(stack) == array[i]){
 			++i;
 			pop(stack);
-			continue;
-		}
-		if (A == array[i]) {
+		}else if (A == array[i]) {
 			++A;
 			++i;
 		}else{
