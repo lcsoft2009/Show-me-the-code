@@ -39,7 +39,7 @@ List *create_list_from_array(int cfts[], int epts[], int size)
 
 void insert_after_pos(List *list,Node *pos,Node *node)
 {
-	assert(list && pos && node);
+	assert(pos && node);
 	Node *newNode = (Node*)malloc(sizeof(Node));
 	assert(newNode);
 	newNode->Coefficient = node->Coefficient;
@@ -129,7 +129,8 @@ void addition(List *m, const List *n)
 		}
 	}
 	while(NULL != nPos){
-		insert_after_pos(mPos,mPos,nPos);
+		insert_after_pos(pre,pre,nPos);
+		pre = pre->Next;
 		nPos = nPos->Next;
 	}
 }
@@ -137,13 +138,13 @@ void addition(List *m, const List *n)
 void multiplication(List *m, List *n,List *result)
 {
     assert(m && n && result);
-	Node *mPos = m->Next;
 	Node *nPos = n->Next;
 	while(NULL != nPos){
 		int nCpt = nPos->Coefficient;
 		int nEpt = nPos->Exponent;
 		List *temp = create_list();
 		Node *tPos = temp;
+		Node *mPos = m->Next;
 		while(NULL != mPos){
 			insert_after_pos2(temp,tPos,
 					mPos->Coefficient * nCpt,
@@ -186,10 +187,16 @@ int main()
 	List *m = getList();
 	printf("get econd list: \n");
 	List *n = getList();
-
 	addition(m,n);
 	printf("addition: ");
 	printList(m);
+	destory_list(m);
+	destory_list(n);
+	
+	printf("get first list: \n");
+	m = getList();
+	printf("get econd list: \n");
+	n = getList();
 	List *result = create_list();
 	multiplication(m,n,result);
 	printf("multiplication: ");
