@@ -68,6 +68,18 @@ List *create_list()
 	return list;
 }
 
+void make_empty(List *list)
+{
+	assert(list);
+	Node *pos = list->Next;
+	while(NULL != pos){
+		Node *freeNode = pos;
+		pos = pos->Next;
+		free(freeNode);
+	}
+	list->Next = NULL;
+}
+
 void destory_list(List *list)
 {
 	assert(list);
@@ -96,37 +108,26 @@ void printList(List *list)
 	printf("\n");
 }
 
-void addition(List *m, List *n,List *result)
+void addition(List *m, const List *n)
 {
 	assert(m && n && result);
 	Node *mPos = m->Next;
 	Node *nPos = n->Next;
-	Node *rPos = result;
 	while(NULL != mPos && NULL != nPos){
 		if(mPos->Exponent > nPos->Exponent){
-			insert_after_pos(result,rPos,mPos);
 			mPos = mPos->Next;
 		}else if(mPos->Exponent < nPos->Exponent){
-			insert_after_pos(result,rPos,nPos);
 			nPos = nPos->Next;
 		}else{
-			insert_after_pos2(result,rPos,
-					mPos->Coefficient + nPos->Coefficient,
-					mPos->Exponent);
 			mPos = mPos->Next;
 			nPos = nPos->Next;
 		}
-		rPos = rPos->Next;
 	}
 	while(NULL != mPos){
-		insert_after_pos(result,rPos,mPos);
 		mPos = mPos->Next;
-		rPos = rPos->Next;
 	}
 	while(NULL != nPos){
-		insert_after_pos(result,rPos,nPos);
 		nPos = nPos->Next;
-		rPos = rPos->Next;
 	}
 }
 
@@ -143,11 +144,11 @@ void multiplication(List *m, List *n,List *result)
 		while(NULL != mPos){
 			insert_after_pos2(temp,tPos,
 					mPos->Coefficient * nCpt,
-					mPos->nEpt + nEpt);
+					mPos->Exponent + nEpt);
 			mPos = mPos->Next;
 			tPos = tPos->Next;
 		}
-		addition(temp,result,result);
+		addition(result,temp);
 		destory_list(temp);
 		nPos = nPos->Next;
 	}
@@ -182,9 +183,14 @@ int main()
 	List *m = getList();
 	printf("get econd list: \n");
 	List *n = getList();
-	printf("addition: ");
+	
 	List *result = create_list();
 	addition(m,n,result);
+	printf("addition: ");
+	printList(result);
+	make_empty(result);
+	multiplication(m,n,result);
+	printf("multiplication: ");
 	printList(result);
 	int pause;
 	scanf("%d",&pause);
