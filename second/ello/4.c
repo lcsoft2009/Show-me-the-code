@@ -68,18 +68,6 @@ List *create_list()
 	return list;
 }
 
-void make_empty(List *list)
-{
-	assert(list);
-	Node *pos = list->Next;
-	while(NULL != pos){
-		Node *freeNode = pos;
-		pos = pos->Next;
-		free(freeNode);
-	}
-	list->Next = NULL;
-}
-
 void destory_list(List *list)
 {
 	assert(list);
@@ -192,7 +180,7 @@ int main()
 	printList(m);
 	destory_list(m);
 	destory_list(n);
-	
+
 	printf("get first list: \n");
 	m = getList();
 	printf("get econd list: \n");
@@ -201,7 +189,8 @@ int main()
 	multiplication(m,n,result);
 	printf("multiplication: ");
 	printList(result);
-	int pause;
-	scanf("%d",&pause);
+	destory_list(m);
+	destory_list(n);
+	destory_list(result);
 	return 0;
 }
