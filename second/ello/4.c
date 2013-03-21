@@ -110,23 +110,26 @@ void printList(List *list)
 
 void addition(List *m, const List *n)
 {
-	assert(m && n && result);
+	assert(m && n);
 	Node *mPos = m->Next;
 	Node *nPos = n->Next;
+	Node *pre = m;
 	while(NULL != mPos && NULL != nPos){
 		if(mPos->Exponent > nPos->Exponent){
 			mPos = mPos->Next;
+			pre = pre->Next;
 		}else if(mPos->Exponent < nPos->Exponent){
+			insert_after_pos(m,pre,nPos);
 			nPos = nPos->Next;
 		}else{
+			mPos->Coefficient += nPos->Coefficient;
 			mPos = mPos->Next;
+			pre = pre->Next;
 			nPos = nPos->Next;
 		}
 	}
-	while(NULL != mPos){
-		mPos = mPos->Next;
-	}
 	while(NULL != nPos){
+		insert_after_pos(mPos,mPos,nPos);
 		nPos = nPos->Next;
 	}
 }
@@ -183,12 +186,11 @@ int main()
 	List *m = getList();
 	printf("get econd list: \n");
 	List *n = getList();
-	
-	List *result = create_list();
-	addition(m,n,result);
+
+	addition(m,n);
 	printf("addition: ");
-	printList(result);
-	make_empty(result);
+	printList(m);
+	List *result = create_list();
 	multiplication(m,n,result);
 	printf("multiplication: ");
 	printList(result);
