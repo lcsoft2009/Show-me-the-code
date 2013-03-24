@@ -17,11 +17,12 @@ static char *keyword_table[] = {"begin","end","/*","*/"};
 static char *singlechar_table[MAX_CHAR_NUM] = {0};
 const int table_size = 4;
 static char* stack[MAX_ARR_NUM] = {0};
+int top = -1;
 char line[MAX_ARR_NUM] = {0};
 int cursor = 0;
 
 void init_table()
-{	
+{
 	singlechar_table[(int)'('] = "(";
 	singlechar_table[(int)')'] = ")";
 	singlechar_table[(int)'['] = "[";
@@ -88,7 +89,6 @@ char *get_token()
 
 void check_match(char *token)
 {
-
 }
 
 int main()
