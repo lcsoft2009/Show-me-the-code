@@ -18,14 +18,14 @@ static char *singlechar_table[MAX_CHAR_NUM] = {0};
 const int table_size = 4;
 char line[MAX_ARR_NUM] = {0};
 int cursor = 0;
-Stack *g_stack = NULL;
 int err = 0; 
 
 typedef struct _Node{
-	void *vaule;
+	void *value;
 	struct _Node *next;
 }Node;
 typedef Node Stack; 
+Stack *g_stack = NULL;
 
 Stack *create_stack()
 {
@@ -57,7 +57,7 @@ void *pop(Stack *stack)
 	assert(stack && !is_empty(stack));
 	Node *free_node = stack->next;
 	void *revalue = free_node->value;
-	stack->next = freeNode->next;
+	stack->next = free_node->next;
 	free(free_node);
 	return revalue;
 }
@@ -143,6 +143,19 @@ char *get_token()
 	}
 }
 
+int check_match(char * top,char *token)
+{
+	assert(top && token);
+	if((strcmp(top,"(") == 0 && strcmp(token,")")) == 0 ||
+		(strcmp(top,"[") == 0 && strcmp(token,"]")) == 0||
+		(strcmp(top,"{") == 0 && strcmp(token,"}")) == 0||
+		(strcmp(top,"begin") == 0 && strcmp(token,"end")) == 0||
+		(strcmp(top,"/*") == 0 && strcmp(token,"*/"))  == 0){
+		return 1;
+	}
+	return 0;
+}
+
 int process_token(char *token)
 {
 	char *open_table[] = {"(","[","{","begin","/*"};
@@ -154,9 +167,9 @@ int process_token(char *token)
 			push(g_stack,token);
 			return 1;
 		}else if(strcmp(close_table[i],token) == 0){
-			if(check_match(token,top(g_stack))){
-				pop(stack);
-				pop(stack);
+			if(check_match((char*)top(g_stack),token)){
+				pop(g_stack);
+				pop(g_stack);
 			}else{
 				return 0;
 			}
@@ -183,8 +196,10 @@ int main()
 				}
 			}
 		}
-		if(!err){
+		if(!err && is_empty(g_stack)){
 			printf("\nsucess\n");
+		}else{
+			printf("\nerror\n");
 		}
 		memset(line,0,strlen(line));
 		cursor = 0;
