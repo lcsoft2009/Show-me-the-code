@@ -18,7 +18,8 @@ static char *singlechar_table[MAX_CHAR_NUM] = {0};
 const int table_size = 4;
 char line[MAX_ARR_NUM] = {0};
 int cursor = 0;
-Stack *g_stack = NULL; 
+Stack *g_stack = NULL;
+int err = 0; 
 
 typedef struct _Node{
 	void *vaule;
@@ -142,7 +143,7 @@ char *get_token()
 	}
 }
 
-void process_token(char *token)
+int process_token(char *token)
 {
 	char *open_table[] = {"(","[","{","begin","/*"};
 	char *close_table[] = {")","]","}","end","*/"};
@@ -151,15 +152,15 @@ void process_token(char *token)
 	for(i = 0;i < table_size;++i){
 		if(strcmp(open_table[i],token) == 0){
 			push(g_stack,token);
-			return;
+			return 1;
 		}else if(strcmp(close_table[i],token) == 0){
 			if(check_match(token,top(g_stack))){
 				pop(stack);
 				pop(stack);
 			}else{
-				printf("\nerror\n");
+				return 0;
 			}
-			return ;
+			return 1;
 		}
 	}
 }
@@ -175,10 +176,16 @@ int main()
 				continue;
 			}else{
 				printf("%s ",token);
-				process_token(token);
+				if(!process_token(token)){
+					printf("\nerror\n");
+					err = 1;
+					break;
+				}
 			}
 		}
-		printf("\n");
+		if(!err){
+			printf("\nsucess\n");
+		}
 		memset(line,0,strlen(line));
 		cursor = 0;
 		destory_stack(g_stack);
