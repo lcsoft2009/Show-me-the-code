@@ -35,16 +35,64 @@ int list_len(Node *head)
 
 void reverse(Node *head)
 {
+	Node *c = head, *p = 0, *n = 0;
+	while(c){
+		n = c->next;
+		c->next = p;
+		p = c;
+		c = n;
+	}
+}
 
+Node *find_k(Node *head, int k)
+{
+	Node *p, *q;
+	p = q = head;
+	int i;
+	for(i = 0; q && i < k; q = q->next,++i);
+	if(i < k) return NULL;
+	while(q){
+		q = q->next;
+		p = p->next;
+	}
+	return p;
+}
+
+Node *find_middle(Node *head)
+{
+	Node *p, *q;
+	p = q = head;
+	while(q && q->next){
+		p = p->next;
+		q = q->next;
+		q = q->next;
+	}
+	return p;
 }
 
 int main()
 {
 	Node d = {4,NULL},c = {3,&d},b = {2,&c},a = {1,&b};
-	//计算链表长度
+	// 计算链表长度
 	printf("%d\n",list_len(&a));
+	// 反转单链表
+	list_display(&a);
 	reverse(&a);
 	list_display(&d);
+	// 查找单链表倒数第k个元素(尾结点记为倒数第0个)
+	Node *re = find_k(&d,4);
+	if(re){
+		printf("%d\n",re->data);
+	}else{
+		printf("(null)\n");
+	}
+	// 查找单链表中间结点
+	re = find_middle(&d);
+	if(re){
+		printf("%d\n",re->data);
+	}else{
+		printf("(null)\n");
+	}
 	return 0;
 }
 
