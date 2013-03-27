@@ -33,6 +33,18 @@ Stack *createStack()
 	return stack;
 }
 
+void destoryStack(Stack *stack)
+{
+	assert(stack);
+	while(!skIsEmpy(stack)){
+		skPop(stack);
+	}
+	if(stack->head){
+		free(stack->head);
+	}
+	free(stack);
+}
+
 int skIsEmpy(Stack *stack)
 {
 	if(NULL == stack) return -1;
@@ -76,6 +88,18 @@ Queue *createQueue()
 	queue->out = createStack();
 	if(NULL == queue->out) return NULL;
 	return queue;
+}
+
+void destoryQueue(Queue *queue)
+{
+	assert(queue);
+	if(queue->in){
+		destoryStack(queue->in);
+	}
+	if(queue->out){
+		destoryStack(queue->out);
+	}
+	free(queue);
 }
 
 void qePush(Queue *queue,int value)
@@ -139,5 +163,6 @@ int main()
 	for(i = 0;i < 10;++i){
 		printf("\n%d\n",qePop(queue));
 	}
+	destoryQueue(queue);
 	return 0;
 }

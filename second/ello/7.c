@@ -20,6 +20,12 @@ Stack *createStack()
 	stack->top = -1;
 }
 
+void destoryStack(Stack *stack)
+{
+	assert(stack);
+	free(stack);
+}
+
 int isFull(Stack *stack)
 {
 	assert(stack);
@@ -53,11 +59,11 @@ int top(Stack *stack)
 	return stack->array[stack->top];
 }
 
-int judge(int array[],int len)
+int judge(Stack *stack, int array[],int len)
 {
 	int A = 1;
 	int i = 0;
-	Stack *stack = createStack();
+	
 	while (len >= A || top(stack) == array[i]) {
 		if(top(stack) == array[i]){
 			++i;
@@ -86,11 +92,12 @@ int main()
 	for(i = 0;i < len;++i){
 		scanf("%d",&array[i]);
 	}
-	if(judge(array,len)){
+	Stack *stack = createStack();
+	if(judge(stack,array,len)){
 		printf("Yes\n");
 	}else{
 		printf("No\n");
 	}
-
+	destoryStack(stack);
 	return 0;
 }
