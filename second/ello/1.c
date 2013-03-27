@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <assert.h>
 typedef struct _Node{
-    int data; 
+    int data;
     struct _Node *next;
 }Node;
 
@@ -70,16 +70,26 @@ Node *find_middle(Node *head)
 	return p;
 }
 
+void reverse_display(Node *head)
+{
+	if(head){
+		reverse_display(head->next);
+		printf("%d ",head->data);
+	}
+}
+
 int main()
 {
 	Node d = {4,NULL},c = {3,&d},b = {2,&c},a = {1,&b};
 	// 计算链表长度
-	printf("%d\n",list_len(&a));
+	printf("len = %d\n",list_len(&a));
 	// 反转单链表
+	printf("reverse list:\n");
 	list_display(&a);
 	reverse(&a);
 	list_display(&d);
 	// 查找单链表倒数第k个元素(尾结点记为倒数第0个)
+	printf("find kth:\n");
 	Node *re = find_k(&d,4);
 	if(re){
 		printf("%d\n",re->data);
@@ -87,12 +97,25 @@ int main()
 		printf("(null)\n");
 	}
 	// 查找单链表中间结点
+	printf("find middle:\n");
 	re = find_middle(&d);
 	if(re){
 		printf("%d\n",re->data);
 	}else{
 		printf("(null)\n");
 	}
+	// 递归逆向打印单链表。
+	printf("reverse display:\n");
+	reverse_display(&d);
+	printf("\n");
+	// 判断一个单链表是否有环，即链表尾的next指针指向了链表中的某一结点形成环。
+	
+	// 找出单链表中环的入口结点，即链表尾的next指针指向了链表中的某一结点。
+	
+	// 判断两个单链表是否相交，即两个单链表存在公共的部分。
+	
+	// 找两个单链表相交的交点。
+
 	return 0;
 }
 
