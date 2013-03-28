@@ -78,6 +78,26 @@ void reverse_display(Node *head)
 	}
 }
 
+int has_loop(Node *head)
+{
+	Node *p = head, *q = p;
+	while(q->next){
+		p = p->next;
+		q = q->next;
+		q = q->next;
+		if(p == q){
+			return 1;
+		}
+	}
+	return 0;
+}
+
+Node *find_entry(Node *head)
+{
+	Node *p = head, *q = p;
+
+}
+
 int main()
 {
 	Node d = {4,NULL},c = {3,&d},b = {2,&c},a = {1,&b};
@@ -109,7 +129,13 @@ int main()
 	reverse_display(&d);
 	printf("\n");
 	// 判断一个单链表是否有环，即链表尾的next指针指向了链表中的某一结点形成环
-	Node e = {1,0}, f = {2,&e}, g = {3,&f}, h = {4,&g}, i = {5,&h}, j = {6,&g};
+	Node e = {1,0}, f = {2,&e}, g = {3,&f}, h = {4,&g}, i = {5,&h}, j = {6,&h};
+	e.next = &g;
+	if(has_loop(&j)){
+		printf("Yes\n");
+	}else{
+		printf("No\n");
+	}
 	// 找出单链表中环的入口结点，即链表尾的next指针指向了链表中的某一结点
 	
 	// 判断两个单链表是否相交，即两个单链表存在公共的部分
