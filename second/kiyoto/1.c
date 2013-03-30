@@ -39,17 +39,31 @@ node_t * list_reverse(node_t *head)
 }
 
 //Find the reciprocal of the k-th element
-//node_t * getRec_k_th(node_t *head)
-
+node_t * getRec_k_th(node_t *head,int k)
+{
+    node_t *n=head;
+    int i=0;
+    while(list_len(head)-i-1!=k)
+    {
+        n=n->next;
+        i++;
+       
+    }
+    return n;
+    
+}
 
 int main(int argc,const char *argv[])
 {
-    node_t * head=0;
+    node_t * head=0,*node=0;
     node_t d={"d",0},c={"c",&d},b={"b",&c},a={"a",&b};
+    head=&a;
     list_display(&a);
     printf ("%d\n",list_len(&a));
-    head=list_reverse(&a);
+    //  head=list_reverse(&a);
     list_display(head);
+    node=getRec_k_th(head,3);
+    printf ("%s\n",node->data);
     return 0;
 }
 
