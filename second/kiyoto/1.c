@@ -43,6 +43,9 @@ node_t * getRec_k_th(node_t *head,int k)
 {
     node_t *n=head;
     int i=0;
+    int len=list_len(head);
+    if(k<0||k>len-1)
+        return 0;
     while(list_len(head)-i-1!=k)
     {
         n=n->next;
@@ -53,6 +56,11 @@ node_t * getRec_k_th(node_t *head,int k)
     
 }
 
+//find the middle node
+node_t *getMidNode(node_t *head)
+{
+    
+}
 int main(int argc,const char *argv[])
 {
     node_t * head=0,*node=0;
