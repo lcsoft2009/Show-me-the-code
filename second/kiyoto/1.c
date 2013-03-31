@@ -59,7 +59,7 @@ node_t * getRec_k_th(node_t *head,int k)
 //find the middle node
 node_t *getMidNode(node_t *head)
 {
-    
+    node_t *node;
 }
 int main(int argc,const char *argv[])
 {
