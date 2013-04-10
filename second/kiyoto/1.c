@@ -99,6 +99,31 @@ int isLoop(node_t *head)
     }
     return 0;
 }
+//find the entence node of loop list
+node_t * getLoopNode(node_t *head)
+{
+    node_t *slow=head;
+    node_t *fast=head;
+    int i=0,j=0;
+    while(fast!=NULL && fast->next!=NULL)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+        if(slow==fast)
+        {
+            slow=head;
+            do
+            {
+                 slow=slow->next;
+                 fast=fast->next;
+                 i++;
+            } while (slow!=fast);
+            printf ("the loop node is located list[%d]\n",i);
+            return fast;
+        }
+    }
+    return 0;
+}
 
 int main(int argc,const char *argv[])
 {
@@ -117,13 +142,15 @@ int main(int argc,const char *argv[])
     printf ("The middle node is %s\n",node->data);
 
     list_display_reserve(head);
-
+    printf("\n");
     node_t f = {"f",0}, g = {"g",&f}, h = {"h",&g}, i = {"i",&h};
-	f.next = &h;
+	f.next = &g;
     if(isLoop(&i))
-        printf("the list  have a loop");
+        printf("the list  have a loop\n");
     else
-            printf("the list does'nt have a loop");
+            printf("the list does'nt have a loop\n");
+    node=getLoopNode(&i);
+    printf ("The loop node is %s\n",node->data);
     return 0;
 }
 
