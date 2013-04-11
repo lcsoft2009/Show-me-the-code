@@ -126,22 +126,15 @@ node_t * getLoopNode(node_t *head)
     return 0;
 }
 
+
 //is_intersect
 int is_intersect(node_t *head1,node_t *head2)
 {
-    node_t *node1=head1;
-    for(;node1->next;node1=node1->next);
-    node1->next=head1;
-    
-    node_t *slow=head1;
-    node_t *fast=head1;
-    while(fast!=NULL && fast->next!=NULL)
-    {
-        slow=slow->next;
-        fast=fast->next->next;
-        if(slow==fast)
-            return 1;       
-    }
+    for(;head1->next;head1=head1->next);
+   for(;head2->next;head2=head2->next);
+   if(head1==head2) 
+      return 1;       
+   else
     return 0;
 }
 
@@ -178,7 +171,6 @@ int main(int argc,const char *argv[])
     node_t e={"e",0},d={"d",&e},c={"c",&d},b={"b",&d},a={"a",&b};
    
     head=&a;
- 
     list_display(&a);
     printf ("%d\n",list_len(&a));
     //  head=list_reverse(&a);
@@ -201,10 +193,10 @@ int main(int argc,const char *argv[])
 
     
     node_t ee = {"1", 0}, dd = {"2", &ee}, cc = {"3", &dd}, bb = {"4", &cc}, aa = {"5", &bb};
-	node_t z = {"8", &bb}, y = {"7", &z}, x = {"6", &y};
-    //  if(is_intersect(&aa, &x)))
-    printf("the two lists are intersect\n");
-    node=get_intersect_node(&aa,&x);
+	node_t z = {"8",&cc}, y = {"7", &z}, x = {"6", &y};
+      if(is_intersect(&aa, &x))
+      printf("the two lists are intersect\n");
+      if(node=get_intersect_node(&aa,&x))
     printf("the intersect node is %s",node->data);
     return 0;
 }
