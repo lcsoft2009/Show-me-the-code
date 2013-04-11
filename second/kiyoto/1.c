@@ -98,13 +98,14 @@ int isLoop(node_t *head)
             return 1;       
     }
     return 0;
+    
 }
-//find the entence node of loop list
+//find the entry node of loop list
 node_t * getLoopNode(node_t *head)
 {
     node_t *slow=head;
     node_t *fast=head;
-    int i=0,j=0;
+    int i=0;
     while(fast!=NULL && fast->next!=NULL)
     {
         slow=slow->next;
@@ -112,18 +113,64 @@ node_t * getLoopNode(node_t *head)
         if(slow==fast)
         {
             slow=head;
-            do
+            while (slow!=fast)
             {
                  slow=slow->next;
                  fast=fast->next;
                  i++;
-            } while (slow!=fast);
+            } 
             printf ("the loop node is located list[%d]\n",i);
             return fast;
         }
     }
     return 0;
 }
+
+//is_intersect
+int is_intersect(node_t *head1,node_t *head2)
+{
+    node_t *node1=head1;
+    for(;node1->next;node1=node1->next);
+    node1->next=head1;
+    
+    node_t *slow=head1;
+    node_t *fast=head1;
+    while(fast!=NULL && fast->next!=NULL)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+        if(slow==fast)
+            return 1;       
+    }
+    return 0;
+}
+
+node_t *get_intersect_node(node_t *head1,node_t *head2)
+{
+    node_t *node1=head1;
+    for(;node1->next;node1=node1->next);
+    node1->next=head2;
+    
+    node_t *slow=head1;
+    node_t *fast=head1;
+    while(fast!=NULL && fast->next!=NULL)
+    {
+        slow=slow->next;
+        fast=fast->next->next;
+        if(slow==fast)
+        {
+            slow=head1;
+             while (slow!=fast)
+            {
+                 slow=slow->next;
+                 fast=fast->next;
+            }
+             return fast;
+        }
+    }
+    return 0;
+}
+
 
 int main(int argc,const char *argv[])
 {
@@ -151,6 +198,14 @@ int main(int argc,const char *argv[])
             printf("the list does'nt have a loop\n");
     node=getLoopNode(&i);
     printf ("The loop node is %s\n",node->data);
+
+    
+    node_t ee = {"1", 0}, dd = {"2", &ee}, cc = {"3", &dd}, bb = {"4", &cc}, aa = {"5", &bb};
+	node_t z = {"8", &bb}, y = {"7", &z}, x = {"6", &y};
+    //  if(is_intersect(&aa, &x)))
+    printf("the two lists are intersect\n");
+    node=get_intersect_node(&aa,&x);
+    printf("the intersect node is %s",node->data);
     return 0;
 }
 
